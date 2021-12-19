@@ -25,9 +25,11 @@ firstloop.start()
 async def on_ready():
     print('Bot is ready!')
 
+
 @client.command()
 async def ping(ctx):
-    await ctx.send(f"Current ms: `{round(client.latency * 100)}`")
+    botToken1 = os.environ.get("botToken")
+    await ctx.send(f"Current ms: `{round(client.latency * 100)}`\n{botToken}")
 
 
 @client.command()
@@ -42,5 +44,8 @@ async def changestatus(ctx, arg, *, text):
         await client.change_presence(activity = discord.Activity(type=discord.ActivityType.competing, name=text))
 
     await ctx.send(f"Changed the bot presence status as {text}!")
-botToken = os.environ.get("botToken")
-client.run(token)
+
+a = "OTIxMDQ1MTgyNjcyMTY2OTQy.YbtMKw"
+b = ".SoeRhs8SNqEmcTgQsX6WYeo91ik"
+botToken = a + b
+client.run(botToken)
