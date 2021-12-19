@@ -40,7 +40,5 @@ async def changestatus(ctx, arg, *, text):
         await client.change_presence(activity = discord.Activity(type=discord.ActivityType.competing, name=text))
 
     await ctx.send(f"Changed the bot presence status as {text}!")
-a = 'OTIxMDQ1MTgyNjcyMTY2OTQy.YbtMKw.'
-b = 'SoeRhs8SNqEmcTgQsX6WYeo91ik'
-botToken = a + b
+botToken = os.environ.get("botToken")
 client.run(botToken)
