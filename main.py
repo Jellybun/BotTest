@@ -41,7 +41,7 @@ async def changestatus(ctx, arg, *, text):
 
     await ctx.send(f"Changed the bot presence status as {text}!")
 
-a = "OTIxMDQ1MTgyNjcyMTY2OTQy.YbtMKw"
-b = ".SoeRhs8SNqEmcTgQsX6WYeo91ik"
-botToken = a + b
+with open("config.json", "r") as f:
+    config = json.load(f)
+botToken = config['token']
 client.run(botToken)
