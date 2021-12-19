@@ -2,11 +2,13 @@ import discord
 import json
 import os
 import datetime
+from keys import token
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
 
 load_dotenv()
-client = commands.Bot(command_prefix = "?", activity=discord.Game("I'm online done"), intents = discord.Intents.all())
+
+client = commands.Bot(command_prefix = "?", activity=discord.Game("I'm online"), intents = discord.Intents.all())
 
 @tasks.loop(seconds=3600)
 async def firstloop():
@@ -41,4 +43,4 @@ async def changestatus(ctx, arg, *, text):
 
     await ctx.send(f"Changed the bot presence status as {text}!")
 botToken = os.environ.get("botToken")
-client.run(botToken)
+client.run(token)
