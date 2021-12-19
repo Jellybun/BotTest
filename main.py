@@ -25,7 +25,7 @@ async def on_ready():
 
 @client.command()
 async def ping(ctx):
-    await ctx.send(f"**Current ms: {round(client.latency * 100)}**")
+    await ctx.send(f"Current ms: `{round(client.latency * 100)}`")
 
 
 @client.command()
