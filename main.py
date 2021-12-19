@@ -6,7 +6,6 @@ from discord.ext import commands, tasks
 from dotenv import load_dotenv
 
 load_dotenv()
-
 client = commands.Bot(command_prefix = "?", activity=discord.Game("I'm online"), intents = discord.Intents.all())
 
 @tasks.loop(seconds=3600)
