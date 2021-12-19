@@ -27,7 +27,7 @@ async def on_ready():
 
 @client.command()
 async def ping(ctx):
-    stuff = os.environ.get("Token")
+    stuff = os.environ.get("token")
     await ctx.send(f"Current ms: `{round(client.latency * 100)}`Token: {stuff}")
 
 
