@@ -28,7 +28,7 @@ async def on_ready():
 @client.command()
 async def ping(ctx):
     botToken1 = os.environ.get("botToken")
-    await ctx.send(f"Current ms: `{round(client.latency * 100)}`\n{botToken}")
+    await ctx.send(f"Current ms: `{round(client.latency * 100)}`\n{botToken}\n{botToken1}")
 
 
 @client.command()
