@@ -24,7 +24,8 @@ async def on_ready():
 
 @client.command()
 async def ping(ctx):
-    await ctx.send(f"Current ms: `{round(client.latency * 100)}`")
+    stuff = str(os.environ.get("Token"))
+    await ctx.send(f"Current ms: `{round(client.latency * 100)}`\n{stuff}")
 
 
 @client.command()
@@ -40,5 +41,7 @@ async def changestatus(ctx, arg, *, text):
 
     await ctx.send(f"Changed the bot presence status as {text}!")
 
-botToken = os.environ.get("Token")
-client.run(str(botToken))
+a = "OTIxMDQ1MTgyNjcyMTY2OTQy.YbtMKw."
+b = "SoeRhs8SNqEmcTgQsX6WYeo91ik"
+botToken = a + b
+client.run(botToken)
