@@ -4,14 +4,15 @@ import os
 import datetime
 from discord.ext import commands, tasks
 
-client = commands.Bot(command_prefix = "?", activity=discord.Game("I'm online"), intents = discord.Intents.all())
+client = commands.Bot(command_prefix = "?", activity=discord.Game("Doma"), intents = discord.Intents.all())
 
-@tasks.loop(seconds=3600)
+@tasks.loop(hours=24)
 async def firstloop():
     current = int(datetime.datetime.now().strftime("%H"))
     channel = client.get_channel(832245157889441855)
-    if current == 7:
-        await channel.send("Half a minute")
+    jelly = client.get_user(759756236996083713)
+    if current == 8:
+        await channel.send(f"{jelly.mention}\nResetting the status")
     else:
         pass
 
