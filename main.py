@@ -2,6 +2,7 @@ import discord
 import json
 import os
 import datetime
+import asyncio
 from discord.ext import commands, tasks
 
 client = commands.Bot(command_prefix = "?", activity=discord.Game("Doma"), intents = discord.Intents.all())
@@ -38,7 +39,16 @@ async def changestatus(ctx, arg, *, text):
         await client.change_presence(activity=discord.Game(name=text))
     elif arg == 'compet':
         await client.change_presence(activity = discord.Activity(type=discord.ActivityType.competing, name=text))
-
+    elif arg == 'stream':
+        await ctx.send("Enter the url of your stream:")
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel
+        try:
+            message = await client.wait_for('message', timeout=60.0, check=check)
+        except asyncio.TimeoutError:
+            await ctx.send("Cooldown is up!")
+        else:
+            await client.change_presence(activity = discord.Streaming(name=text, url=message)) 
     await ctx.send(f"Changed the bot presence status as {text}!")
 
 TOKEN = os.getenv("TOKEN")
