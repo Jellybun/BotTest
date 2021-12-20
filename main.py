@@ -32,10 +32,11 @@ async def ping(ctx):
 @client.command()
 async def changestatus(ctx, arg = None, *, text = None):
     if arg is None and text is None:
-        embed = discord.Embed(description='!changestatus `<type>` `<title>`\ntype = `watch`, listen`, `play`, `compet`, `stream`\ntitle = Anything you want\n!changestatus compet Owm competition')
+        embed = discord.Embed(title = "Command description:", description='!changestatus `<type>` `<title>`\ntype = `watch`, `listen`, `play`, `compet`, `stream`\ntitle = Anything you want\n!changestatus compet Owm competition')
         await ctx.send(embed = embed)
+        return
     elif text == None:
-        await ctx.send("Please indicate the activity type\n`watch`, listen`, `play`, `compet`, `stream`")
+        await ctx.send("Please indicate the activity type\n`watch`, `listen`, `play`, `compet`, `stream`")
         return
     elif arg == 'watch':
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=text))
