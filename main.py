@@ -48,8 +48,8 @@ async def changestatus(ctx, arg, *, text):
         except asyncio.TimeoutError:
             await ctx.send("Cooldown is up!")
         else:
-            await ctx.send(f"Url: {message}")
-            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.streaming, name=text, url=message)) 
+            await ctx.send(f"Url: {message.content}")
+            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.streaming, name=text, url=message.content)) 
     await ctx.send(f"Changed the bot presence status as {text}!")
 
 TOKEN = os.getenv("TOKEN")
