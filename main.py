@@ -30,8 +30,14 @@ async def ping(ctx):
 
 
 @client.command()
-async def changestatus(ctx, arg, *, text):
-    if arg == 'watch':
+async def changestatus(ctx, arg = None, *, text = None):
+    if arg is None and text is None:
+        embed = discord.Embed(description='!changestatus `<type>` `<title>`\ntype = `watch`, listen`, `play`, `compet`, `stream`\ntitle = Anything you want\n!changestatus compet Owm competition')
+        await ctx.send(embed = embed)
+    elif text == None:
+        await ctx.send("Please indicate the activity type\n`watch`, listen`, `play`, `compet`, `stream`")
+        return
+    elif arg == 'watch':
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=text))
     elif arg == 'listen':
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=text))
@@ -40,7 +46,7 @@ async def changestatus(ctx, arg, *, text):
     elif arg == 'compet':
         await client.change_presence(activity = discord.Activity(type=discord.ActivityType.competing, name=text))
     elif arg == 'stream':
-        await ctx.send("Enter the url of your stream:")
+        await ctx.send("Enter the url of __twitch__ stream:")
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
         try:
@@ -48,9 +54,8 @@ async def changestatus(ctx, arg, *, text):
         except asyncio.TimeoutError:
             await ctx.send("Cooldown is up!")
         else:
-            await ctx.send(f"Url: {message.content}")
             await client.change_presence(activity=discord.Activity(type=discord.ActivityType.streaming, name=text, url=message.content)) 
-    await ctx.send(f"Changed the bot presence status as {text}!")
+    await ctx.send(f"Changed the bot presence status as **{arg}ing {text}**!")
 
 TOKEN = os.getenv("TOKEN")
 client.run(TOKEN)
