@@ -33,6 +33,7 @@ async def ping(ctx):
 async def changestatus(ctx, arg = None, *, text = None):
     if arg is None and text is None:
         embed = discord.Embed(title = "Command description:", description='!changestatus `<type>` `<title>`\ntype = `watch`, `listen`, `play`, `compet`, `stream`\ntitle = Anything you want\n!changestatus compet Owm competition')
+        embed.set_author(name=client.name, url=client.avatar_url)
         await ctx.send(embed = embed)
         return
     elif text == None:
