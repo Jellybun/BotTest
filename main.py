@@ -5,14 +5,20 @@ import datetime
 import asyncio
 import requests
 from discord.ext import commands, tasks
-userBlackList = [759756236996083713]
+userBlackList = []
 
 client = commands.Bot(command_prefix = "?", activity=discord.Game("Doma"), intents = discord.Intents.all())
 
 def get_apod():
-    response = requests.get("https://api.nasa.gov/planetary/apod")
+    response = requests.get("https://api.nasa.gov/planetary/apod?api_key=FHlnYmh56cpv8KVLOdW8k2mCdKhAYT47A6XEKZCG")
     json_data = json.loads(response.text)
     return json_data
+
+def get_weather():
+    response = requests.get("api.openweathermap.org/data/2.5/weather?q=London&appid={f58168ca28ded38fd2b1f71376b48f31}")
+    json_data = json.loads(response.text)
+    return json_data
+
 
 
 @tasks.loop(hours=24)
@@ -38,8 +44,22 @@ async def ping(ctx):
 
 @client.command()
 async def nasa(ctx):
-    image = get_apod()
-    await ctx.send(image)
+    data = get_apod()
+    image = data["hdurl"]
+    title = data['title']
+    date = data['date']
+    explanation = data['explanation']
+    author = data['copyright']
+    embed = discord.Embed(title=title, description=str(explanation))
+    embed.set_author(name=str(author))
+    embed.set_image(url=str(image))
+    embed.set_footer(text=str(date))
+    await ctx.send(embed = embed)
+
+@client.command()
+async def weather(ctx):
+    data = get_weather()
+    await ctx.send(data[1])
 
 class Blacklist(commands.CheckFailure):
     pass
@@ -51,6 +71,7 @@ async def userblacklist(ctx):
         return
     else:
         return True
+
 
 # On Command Error
 @client.event
@@ -93,4 +114,4 @@ async def changestatus(ctx, arg = None, *, text = None):
     await ctx.send(f"Changed the bot presence status as **{arg}ing {text}**!")
 
 TOKEN = os.getenv("TOKEN")
-client.run(TOKEN)
+client.run("OTIxMDQ1MTgyNjcyMTY2OTQy.YbtMKw._iqa3BMxKAvZsF3tuIk8RiVkUHE")
