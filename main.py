@@ -3,10 +3,17 @@ import json
 import os
 import datetime
 import asyncio
+import requests
 from discord.ext import commands, tasks
 userBlackList = [759756236996083713]
 
 client = commands.Bot(command_prefix = "?", activity=discord.Game("Doma"), intents = discord.Intents.all())
+
+def get_apod():
+    response = requests.get("https://api.nasa.gov/planetary/apod")
+    json_data = json.loads(response.text)
+    return json_data
+
 
 @tasks.loop(hours=24)
 async def firstloop():
@@ -28,6 +35,11 @@ async def on_ready():
 @client.command()
 async def ping(ctx):
     await ctx.send(f"Current ms: `{round(client.latency * 100)}`")
+
+@client.command()
+async def nasa(ctx):
+    image = get_apod()
+    await ctx.send(image)
 
 class Blacklist(commands.CheckFailure):
     pass
