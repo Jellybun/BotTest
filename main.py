@@ -45,7 +45,13 @@ async def userblacklist(ctx):
 async def on_command_error(ctx, error):
     if isinstance(error, Blacklist):
         await ctx.send(error)
-
+@client.command()
+async def given(ctx):
+    role = ctx.guild.get_role(922763949148094515)
+    members = role.members
+    for i in members:
+        await ctx.send(i.name)
+    await ctx.send(members)
 @client.command()
 async def changestatus(ctx, arg = None, *, text = None):
     if arg is None and text is None:
