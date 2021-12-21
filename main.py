@@ -114,4 +114,4 @@ async def changestatus(ctx, arg = None, *, text = None):
     await ctx.send(f"Changed the bot presence status as **{arg}ing {text}**!")
 
 TOKEN = os.getenv("TOKEN")
-client.run("OTIxMDQ1MTgyNjcyMTY2OTQy.YbtMKw._iqa3BMxKAvZsF3tuIk8RiVkUHE")
+client.run(TOKEN)
