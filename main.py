@@ -4,6 +4,7 @@ import os
 import datetime
 import asyncio
 from discord.ext import commands, tasks
+userBlackList = [759756236996083713]
 
 client = commands.Bot(command_prefix = "?", activity=discord.Game("Doma"), intents = discord.Intents.all())
 
@@ -28,6 +29,22 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(f"Current ms: `{round(client.latency * 100)}`")
 
+class Blacklist(commands.CheckFailure):
+    pass
+
+@client.check
+async def userblacklist(ctx):
+    if ctx.author.id in userBlackList:
+        raise Blacklist('You are temporarily blacklisted from using this bot.')
+        return
+    else:
+        return True
+
+# On Command Error
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, Blacklist):
+        await ctx.send(error)
 
 @client.command()
 async def changestatus(ctx, arg = None, *, text = None):
